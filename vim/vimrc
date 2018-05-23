@@ -1,0 +1,107 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'bling/vim-airline'
+Plugin 'godlygeek/tabular'
+Plugin 'joshdick/onedark.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'valloric/youcompleteme'
+
+call vundle#end()
+filetype plugin indent on
+
+set number
+set cursorline
+
+syntax enable
+set encoding=utf8
+set ffs=unix,dos,mac
+
+set background=dark
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='onedark'
+
+let g:onedark_termcolors = 256
+let g:onedark_terminal_italics = 1
+colorscheme onedark
+
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l,[,]
+
+set list lcs=tab:\|\
+
+" search
+set ignorecase
+set smartcase
+set incsearch
+
+" brackets
+set showmatch
+set mat=2
+
+" tabs
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set ai
+set si
+" our c++ codes use 2 spaces for tabs
+augroup tabSettingsForCxxFile
+    autocmd!
+    autocmd BufRead,BufNewFile *.cxx,*.h,*.deps,*.c setlocal ts=2 sw=2
+augroup END
+
+set nohlsearch
+
+" wrapped lines are treated as separate lines by j and k
+map j gj
+map k gk
+
+" :Wq = :wq | :W = :w | :Q = :q | :Qa = :qa
+command! -complete=file -bang -nargs=? W :w<bang> <args>
+command! -complete=file -bang -nargs=? Wq :wq<bang> <args>
+command! -bang Q :q<bang>
+command! -bang Qa :qa<bang>
+
+" statusline / command line
+set wildmenu
+set wildignore=*.o,*~,*.pyc
+set ruler
+set cmdheight=1
+set statusline="%f%m%r%h%w [%Y] [0x%02.2B]%< %F%=%4v,%4l %3p%% of %L"
+
+noremap <up> :echo "use k"<cr>
+noremap <down> :echo "use j"<cr>
+noremap <left> :echo "use h"<cr>
+noremap <right> :echo "use l"<cr>
+
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+autocmd vimenter * NERDTree
+map <C-z> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+set mouse=a
+autocmd FilterWritePre * if &diff | setlocal wrap< | endif
