@@ -1,6 +1,5 @@
 [user]
 	name = PJHRobles
-	email = joshua.h.robles@gmail.com
 [core]
 	editor = vim
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
