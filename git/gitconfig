@@ -17,10 +17,7 @@
 [color "branch"]
 	current = yellow bold
 	local = green bold
-	remote = cyan bold
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
 	old = red bold
 	new = green bold
 	whitespace = red reverse
