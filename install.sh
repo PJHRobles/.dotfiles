@@ -1,13 +1,23 @@
-#! /bin/zsh
+#!/bin/zsh
 
 set -euvx
 
-# straightforward install for now and convert to functions later
 DIR=`pwd`
+HOME=~/
 ZSH_DIR=~/.oh-my-zsh/
 
+create_symbolic_link () {
+    target=$1
+    dest=$2
+    filename=$3
 
-ln -sf ${DIR}/vim/vimrc ~/.vimrc
-ln -sf ${DIR}/git/gitconfig ~/.gitconfig
-ln -sf ${DIR}/zsh/bullet-train.zsh-theme ${ZSH_DIR}/themes/bullet-train.zsh-theme
-ln -sf ${DIR}/zsh/zshrc ~/.zshrc
+    if [[ -e "$target" && -d "$dest" && -z "$filename" ]]
+    then
+        ln -sf ${target} ${dest}/${filename}
+    fi
+}
+
+create_symbolic_link ${DIR}/vim/vimrc ${HOME} .vimrc
+create_symbolic_link ${DIR}/zsh/zshrc ${HOME} .gitconfig
+create_symbolic_link ${DIR}/zsh/bullet-train.zsh-theme ${ZSH_DIR}/themes bullet-train.zsh-theme
+create_symbolic_link ${DIR}/zsh/zshrc ${HOME} .zshrc
