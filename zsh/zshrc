@@ -101,4 +101,14 @@ source /usr/local/bin/virtualenvwrapper.sh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+# custom aliases
 alias ll="ls -alh"
+
+alias ..="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
+
+[ -f ~/.workrc ] && source ~/.workrc # load work config
+[ ! -f ~/.workrc ] && touch ~/.workrc # create work config if not present
