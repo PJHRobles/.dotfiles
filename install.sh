@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 set -euvx
 
@@ -11,8 +11,7 @@ create_symbolic_link () {
     dest=$2
     filename=$3
 
-    if [[ -e "$target" && -d "$dest" && -z "$filename" ]]
-    then
+    if [ -e "$target" ] && [ -d "$dest" ] && [ -z "$filename" ]; then
         ln -sf ${target} ${dest}/${filename}
     fi
 }
