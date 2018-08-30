@@ -21,7 +21,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-eunuch'
+Plugin 'quramy/tsuquyomi'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Quramy/vim-js-pretty-template'
+
+" language specific plugins
 Plugin 'leafgarland/typescript-vim'
+Plugin 'beyondwords/vim-twig'
 
 call vundle#end()
 filetype plugin indent on
@@ -96,6 +102,14 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+" angular and ts
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+autocmd FileType typescript JsPreTmpl html
+autocmd FileType typescript syn clear foldBraces
 
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
